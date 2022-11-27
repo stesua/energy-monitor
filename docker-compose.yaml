@@ -10,9 +10,7 @@ services:
         ports:
             - "8086:8086"
         environment:
-            - INFLUXDB_DB=db0
-            - INFLUXDB_ADMIN_USER=admin
-            - INFLUXDB_ADMIN_PASSWORD=admin
+            - ./influx2.env
 
     # Use the influx cli to set up an influxdb instance.
 #     influxdb_cli:
@@ -64,8 +62,7 @@ services:
             - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
             - grafana-data:/var/lib/grafana
         environment:
-            - GF_SECURITY_ADMIN_USER=admin
-            - GF_SECURITY_ADMIN_PASSWORD=admin
+            - ./grafana.env
 
 volumes:
     grafana-data:
