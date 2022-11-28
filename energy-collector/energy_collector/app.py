@@ -1,23 +1,43 @@
 import logging
-from influxdb_client import InfluxDBClient
-from collect import SmartMeterCollector, Measure, MeasureException
-from instrument import OrnaWe515
 
-if __name__ == '__main__':
+from datetime import datetime
+from collect import SmartMeterCollector, Measure, MeasureException
+from energy_collector.influxdb import InfluxDBService
+from instrument import OrnaWe515
+from timeloop import Timeloop
+from datetime import timedelta
+
+tl = Timeloop()
+# TODO: configure
+@tl.job(interval=timedelta(seconds=10))
+def run_job():
     logging.basicConfig(level=logging.DEBUG)
     logging.info("Start monitoring")
     # TODO: change
-    token = "iGHIoYd-jIJ1piThJevsDcPmpSQzo3pV45GL0sSE0c34ESsP30ChBXSYQ0HP6IZhK6zgqI-cbuYLGWfWZ4iZNA=="
+    token = "zBrdmVUqqKmgSkjmJdVavMsdsJrAZv7znzR-s6sYPNidNwjsno8g-eQhropAJlbj2gq_1zyUpZxxN1vZH8YPgA=="
     org = "home"
     bucket = "energy"
-    url = "http://localhost:8086"
-    influxdb_client = InfluxDBClient(url=url, token=token, org=org)
-    
-    collector = SmartMeterCollector(smart_meter = OrnaWe515())
+    url = "http://192.168.1.248:8086"
+    influxdb_service = InfluxDBService(org, bucket, url, token)
+    collector = SmartMeterCollector(smart_meter=OrnaWe515())
 
     try:
         measure = collector.collect()
+        fake_measure = Measure(
+            timestamp=datetime.utcnow(),
+            frequency=50,
+            voltage=230,
+            current=1,
+            active_power=300,
+            reactive_power=200,
+            apparent_power=150,
+            power_factory=1,
+            active_energy=None,
+            reactive_energy=None)
         logging.info(measure)
+        influxdb_service.write_measure(measure)
     except MeasureException as e:
         logging.error(e)
 
+if __name__ == '__main__':
+    tl.start(block=True)

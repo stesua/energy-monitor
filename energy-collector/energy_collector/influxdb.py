@@ -1,52 +1,34 @@
-# export INFLUXDB_TOKEN=
+import logging
 
-import influxdb_client, os, time
-from influxdb_client import InfluxDBClient, Point, WritePrecision
+from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-# TODO: write influxdb wrapper
-def write():
-    write_api = client.write_api(write_options=SYNCHRONOUS)
-
-    for value in range(5000):
-        point = (
-            Point("measurement1")
-            .tag("tagname1", "tagvalue1")
-            .field("field1", value)
-        )
-        write_api.write(bucket=bucket, org=org, record=point)
-        # time.sleep(1) # separate points by 1 second
-
-def simple_query():
-    query_api = client.query_api()
-
-    query = f"""from(bucket: "{bucket}")
-    |> range(start: -10m)
-    |> filter(fn: (r) => r._measurement == "measurement1")"""
-    tables = query_api.query(query, org=org)
-
-    for table in tables:
-        for record in table.records:
-            print(record)
-
-def flux_query():
-    query = f"""from(bucket: "{bucket}")
-    |> range(start: -10m)
-    |> filter(fn: (r) => r._measurement == "measurement1")
-    |> mean()"""
-    tables = query_api.query(query, org=org)
-
-    for table in tables:
-        for record in table.records:
-            print(record)
-
-if __name__ == '__main__':
-    # token = os.environ.get("INFLUXDB_TOKEN")
-    token = "-mJVxHfZSyCiI8PdW-4usF8PebiExZ2lQLPBfjS2d__255VaMCDVZEVOMzOGULlvqhVLNF9F3_3e28CXWMaP-g=="
-    org = "home"
-    bucket = "energy"
-    url = "http://localhost:8086"
-    client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
-    write()
+from energy_collector.collect import Measure
 
 
+class InfluxDBService:
+    def __init__(self, org: str, bucket: str, url: str, token: str):
+        self.org = org
+        self.bucket = bucket
+        self.url = url
+        self.client = InfluxDBClient(url=url, token=token, org=org)
+        self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
+
+    def write_measure(self, measure: Measure):
+        logging.debug(f"Sending measure to influxDB {measure}")
+        # TODO: improve it
+        self.write_api.write(
+            bucket=self.bucket,
+            org=self.org,
+            record=measure,
+            record_measurement_key="name",
+            record_time_key="timestamp",
+            record_field_keys=[
+                "frequency",
+                "voltage",
+                "current",
+                "active_power",
+                "reactive_power",
+                "apparent_power",
+                "power_factory",
+            ])

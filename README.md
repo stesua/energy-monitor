@@ -12,12 +12,22 @@ Components:
 - raspberry 3+ with 64 bit OS (32 bit should work adjusting docker image versions)
 - docker
 - python 3.9 (TODO: evaluate support for previous version or adopt 3.11 instead)
-- [poetry](https://python-poetry.org/docs/)
+- [poetry](https://python-poetry.org/docs/) for dev
+- pip on raspberry
 
 ### Install poetry
 ```
 curl -sSL https://install.python-poetry.org | python3 -
 ```
+
+### Useful commands
+```
+# export requrirements
+poetry export -f requirements.txt --output requirements.txt
+
+pip install -r requirements.txt
+```
+
 
 ## Docker on raspberry
 Must select images that are compatible with armv7l architecture (armv7 for 32 bit, armv8 for 64 bit)
