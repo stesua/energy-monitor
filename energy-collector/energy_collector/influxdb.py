@@ -17,6 +17,7 @@ class InfluxDBService:
     def write_measure(self, measure: Measure):
         logging.debug(f"Sending measure to influxDB {measure}")
         # TODO: improve it
+        # FIXME: force to use float
         self.write_api.write(
             bucket=self.bucket,
             org=self.org,

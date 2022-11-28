@@ -1,5 +1,5 @@
+import random
 from datetime import datetime
-
 from dataclasses import dataclass
 from typing import Optional
 from instrument import OrnaWe515
@@ -26,8 +26,13 @@ class MeasureException(Exception):
 
 
 class SmartMeterCollector:
-    def __init__(self, smart_meter: OrnaWe515):
-        self.smart_meter = smart_meter
+    def collect(self) -> Measure:
+        pass
+
+
+class OrnaWe515Collector(SmartMeterCollector):
+    def __init__(self):
+        self.smart_meter = OrnaWe515()
 
     def collect(self) -> Measure:
         try:
@@ -47,3 +52,17 @@ class SmartMeterCollector:
             )
         except Exception as e:
             raise MeasureException("Fail to fetch measure") from e
+
+
+class FakeCollector(SmartMeterCollector):
+    def collect(self) -> Measure:
+        return Measure(
+            timestamp=datetime.utcnow(),
+            frequency=random.uniform(49.8, 50.2),
+            voltage=random.uniform(228.0, 232.0),
+            current=random.uniform(0.0, 15.0),
+            active_power=random.uniform(0.0, 4000.0),
+            reactive_power=random.uniform(0.0, 4000.0),
+            apparent_power=random.uniform(0.0, 4000.0),
+            power_factory=random.uniform(0.0, 2.0)
+        )
