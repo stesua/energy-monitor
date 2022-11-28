@@ -8,6 +8,7 @@ authors = ["stesua"]
 python = "^3.9"
 minimalmodbus = "^2.0.1"
 influxdb-client = "^1.34.0"
+timeloop = "^1.0.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
