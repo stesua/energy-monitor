@@ -3,7 +3,7 @@ import logging
 from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-from energy_collector.collect import Measure
+from collect import Measure
 
 
 class InfluxDBService:

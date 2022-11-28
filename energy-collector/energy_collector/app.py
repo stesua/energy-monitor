@@ -2,7 +2,7 @@ import logging
 
 from datetime import datetime
 from collect import SmartMeterCollector, Measure, MeasureException
-from energy_collector.influxdb import InfluxDBService
+from influxdb import InfluxDBService
 from instrument import OrnaWe515
 from timeloop import Timeloop
 from datetime import timedelta
