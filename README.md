@@ -64,6 +64,29 @@ docker version
 docker info
 ```
 
+## InfluxDB
+```
+influx config create \
+  -n local \
+  -u http://localhost:8086 \
+  -p admin:admin123 \
+  -o home
+  
+influx config create \
+  -n raspberry \
+  -u http://192.168.1.248:8086 \
+  -p admin:admin123 \
+  -o home
+  
+influx backup ./influxdb-backups/
+
+influx delete \
+  --bucket energy \
+  --start 1970-01-01T00:00:00Z \
+  --stop $(date +"%Y-%m-%dT%H:%M:%SZ") \
+  --predicate '_measurement="energy"'
+
+```
 
 ## References
 - [Docker-compose influxdb and grafana](https://github.com/jkehres/docker-compose-influxdb-grafana/blob/master/docker-compose.yml)

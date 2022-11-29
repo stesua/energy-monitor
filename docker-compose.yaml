@@ -2,8 +2,6 @@ version: '3.7'
 
 services:
     influxdb:
-#         image: influxdb:1.8.10
-        #         TODO: restore 2.5 for raspberry 64 bit
         image: influxdb:2.5-alpine
         volumes:
             - influxdb2-data:/var/lib/influxdb2:rw
@@ -13,29 +11,29 @@ services:
             - ./influx2.env
 
     # Use the influx cli to set up an influxdb instance.
-#     influxdb_cli:
-#         links:
-#             - influxdb
-#         image: influxdb:latest
-#         volumes:
-#             # Mount for influxdb data directory and configuration
-# #             - ./ssl/influxdb-selfsigned.crt:/etc/ssl/influxdb-selfsigned.crt:rw
-# #             - ./ssl/influxdb-selfsigned.key:/etc/ssl/influxdb-selfsigned.key:rw
-#             - ./influxdb2:/var/lib/influxdb2:rw
-#         environment:
-#             # Use these same configurations parameters in your telegraf configuration, mytelegraf.conf.
-#             - DOCKER_INFLUXDB_INIT_MODE=setup
-#             - DOCKER_INFLUXDB_INIT_USERNAME=myusername
-#             - DOCKER_INFLUXDB_INIT_PASSWORD=passwordpasswordpassword
-#             - DOCKER_INFLUXDB_INIT_ORG=myorg
-#             - DOCKER_INFLUXDB_INIT_BUCKET=mybucket
-#             - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=mytoken
-#             - INFLUXD_TLS_CERT=/etc/ssl/influxdb-selfsigned.crt
-#             - INFLUXD_TLS_KEY=/etc/ssl/influxdb-selfsigned.key
-#         entrypoint: ["./entrypoint.sh"]
-#         restart: on-failure:10
-#         depends_on:
-#             - influxdb
+    influxdb_cli:
+        links:
+            - influxdb
+        image: influxdb:2.5-alpine
+        volumes:
+            # Mount for influxdb data directory and configuration
+ #            - ./ssl/influxdb-selfsigned.crt:/etc/ssl/influxdb-selfsigned.crt:rw
+ #            - ./ssl/influxdb-selfsigned.key:/etc/ssl/influxdb-selfsigned.key:rw
+            - ./influxdb2:/var/lib/influxdb2:rw
+        environment:
+            # Use these same configurations parameters in your telegraf configuration, mytelegraf.conf.
+            - DOCKER_INFLUXDB_INIT_MODE=setup
+            - DOCKER_INFLUXDB_INIT_USERNAME=admin
+            - DOCKER_INFLUXDB_INIT_PASSWORD=admin123
+            - DOCKER_INFLUXDB_INIT_ORG=home
+            - DOCKER_INFLUXDB_INIT_BUCKET=energy
+            - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=mytoken
+#            - INFLUXD_TLS_CERT=/etc/ssl/influxdb-selfsigned.crt
+#            - INFLUXD_TLS_KEY=/etc/ssl/influxdb-selfsigned.key
+        entrypoint: ["./entrypoint.sh"]
+        restart: on-failure:10
+        depends_on:
+            - influxdb
 #
 #     telegraf:
 #         image: telegraf

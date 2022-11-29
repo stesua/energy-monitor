@@ -38,17 +38,17 @@ class OrnaWe515Collector(SmartMeterCollector):
         try:
             return Measure(
                 timestamp=datetime.utcnow(),
-                frequency=self.smart_meter.instrument.read_register(304, 2, 3, True),
-                voltage=self.smart_meter.instrument.read_register(305, 2, 3, True),
-                current=self.smart_meter.instrument.read_long(313, 3, False, 0),
-                active_power=self.smart_meter.instrument.read_long(320, 3, False, 0),
-                reactive_power= self.smart_meter.instrument.read_long(328, 3, False, 0),
-                apparent_power=self.smart_meter.instrument.read_long(336, 3, False, 0),
-                power_factory=self.smart_meter.instrument.read_register(344, 3, 3, True),
+                frequency=float(self.smart_meter.instrument.read_register(304, 2, 3, True)),
+                voltage=float(self.smart_meter.instrument.read_register(305, 2, 3, True)),
+                current=float(self.smart_meter.instrument.read_long(313, 3, False, 0)),
+                active_power=float(self.smart_meter.instrument.read_long(320, 3, False, 0)),
+                reactive_power=float(self.smart_meter.instrument.read_long(328, 3, False, 0)),
+                apparent_power=float(self.smart_meter.instrument.read_long(336, 3, False, 0)),
+                power_factory=float(self.smart_meter.instrument.read_register(344, 3, 3, True)),
                 #read_registers(registeraddress, number_of_registers, functioncode=3) TODO: check transformation
-                # active_energy=self.smart_meter.instrument.read_registers(40960, 10, 3),
+                # active_energy=float(self.smart_meter.instrument.read_registers(40960, 10, 3)),
                 #read_registers(registeraddress, number_of_registers, functioncode=3) TODO: check transformation
-                # reactive_energy=self.smart_meter.instrument.read_registers(40990, 10, 3)
+                # reactive_energy=float(self.smart_meter.instrument.read_registers(40990, 10, 3))
             )
         except Exception as e:
             raise MeasureException("Fail to fetch measure") from e

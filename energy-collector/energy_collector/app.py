@@ -1,19 +1,19 @@
+import datetime
 import logging
 
 from collect import OrnaWe515Collector, FakeCollector
 from influxdb import InfluxDBService
 from timeloop import Timeloop
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 tl = Timeloop()
+logging.basicConfig(level=logging.DEBUG)
 
 
 # TODO: configure interval
 @tl.job(interval=timedelta(seconds=1))
 def run_job():
-    logging.basicConfig(level=logging.DEBUG)
-    logging.info("Start monitoring")
-
+    logging.debug(f"monitoring job triggered at {datetime.utcnow()}")
     # TODO: change
     # raspberry
     token = "zBrdmVUqqKmgSkjmJdVavMsdsJrAZv7znzR-s6sYPNidNwjsno8g-eQhropAJlbj2gq_1zyUpZxxN1vZH8YPgA=="
@@ -33,9 +33,10 @@ def run_job():
         measure = collector.collect()
         logging.info(measure)
         influxdb_service.write_measure(measure)
-    except Exception as e:
-        logging.error(e)
+    except Exception:
+        logging.exception("collecting failure")
 
 
 if __name__ == '__main__':
+    logging.info("Start monitoring")
     tl.start(block=True)
