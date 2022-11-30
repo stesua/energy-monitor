@@ -5,20 +5,21 @@ datasources:
     type: influxdb
     access: proxy
     url: http://influxdb:8086
-    # This database should be mapped to a bucket
     database: energy
     jsonData:
         httpMode: GET
         httpHeaderName1: 'Authorization'
     secureJsonData:
-        httpHeaderValue1: '-mJVxHfZSyCiI8PdW-4usF8PebiExZ2lQLPBfjS2d__255VaMCDVZEVOMzOGULlvqhVLNF9F3_3e28CXWMaP-g=='
+        httpHeaderValue1: 'Token influx-db-token'
 
-#   - name: InfluxDB
-#     type: influxdb
-#     access: proxy
-#     database: db0
-#     user: admin
-#     password: admin
-#     url: http://influxdb:8086
-#     isDefault: true
-#     editable: false
+  - name: InfluxDB_v2_Flux
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    secureJsonData:
+      token: 'influx-db-token'
+    jsonData:
+      version: Flux
+      organization: home
+      defaultBucket: energy
+      tlsSkipVerify: true
