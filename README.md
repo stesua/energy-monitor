@@ -25,7 +25,11 @@ curl -sSL https://install.python-poetry.org | python3 -
 # export requrirements
 poetry export -f requirements.txt --output requirements.txt
 
+# install requirements on raspberry
 pip install -r requirements.txt
+
+# run in background
+nohup python energy_collector/app.py &
 ```
 
 
@@ -104,6 +108,23 @@ should be recognized already?
 
 
 ## TODO
-Add system service like https://github.com/fargiolas/we515mqtt/blob/master/we515mqtt.service
+- Add system service like https://github.com/fargiolas/we515mqtt/blob/master/we515mqtt.service
+- add energy measure
+- refactor energy measure into main since in general with different power meter or power sensor you can collect different measurement 
+  - BREAKING CHANGE! 
+- add raspberry metrics, like cpu usage, memory, temperature ...
+- deploy services
+- test deployment script
+- complete backup
+- move backup into cloud
+- export data 
+- implement factory collector based on environment 
+- complete dashboard
+- compute price by interpolating energy and price at a given time
+- configure interval
+- configure token, use static one for sake of simplicity
+- try increase timeout
+- persist logging
+- configure logging level 
 
 
