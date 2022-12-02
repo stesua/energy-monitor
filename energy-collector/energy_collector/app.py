@@ -1,23 +1,19 @@
 import datetime
 import logging
+import sys
 
-from collect import OrnaWe515Collector, FakeCollector
+from collect import provide_smart_meter_collector
 from influxdb import InfluxDBService
 from timeloop import Timeloop
 from datetime import timedelta, datetime
 
 tl = Timeloop()
-logging.basicConfig(level=logging.DEBUG)
 
 
 # TODO: configure interval
 @tl.job(interval=timedelta(seconds=1))
 def run_job():
     logging.debug(f"monitoring job triggered at {datetime.utcnow()}")
-    # TODO: change
-    # raspberry
-    # token = "zBrdmVUqqKmgSkjmJdVavMsdsJrAZv7znzR-s6sYPNidNwjsno8g-eQhropAJlbj2gq_1zyUpZxxN1vZH8YPgA=="
-    # mac
     token = "influx-db-token"
 
     org = "home"
@@ -25,9 +21,7 @@ def run_job():
     url = "http://localhost:8086"
     influxdb_service = InfluxDBService(org, bucket, url, token)
 
-    # TODO: use factory instead
-    # collector = OrnaWe515Collector()
-    collector = FakeCollector()
+    collector = provide_smart_meter_collector(collector_name)
 
     try:
         measure = collector.collect()
@@ -38,5 +32,15 @@ def run_job():
 
 
 if __name__ == '__main__':
-    logging.info("Start monitoring")
+    argv = sys.argv[1:]
+    # TODO: improve arg parsing
+    debug_mode = argv[0].lower() == "true" if len(argv) >= 1 else False
+    collector_name = argv[1].lower() if len(argv) >= 2 else "orna"
+
+    if debug_mode:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
+
+    logging.info(f"Start monitoring, args: debug_mode={debug_mode}, collector_name={collector_name}")
     tl.start(block=True)

@@ -1,3 +1,4 @@
+import logging
 import random
 from datetime import datetime
 from dataclasses import dataclass
@@ -22,7 +23,7 @@ class Measure:
 
 
 class MeasureException(Exception):
-    """Raise for my specific kind of exception"""
+    """Raise when error in the measure occur, typically due to hardware interface"""
 
 
 class SmartMeterCollector:
@@ -54,7 +55,7 @@ class OrnaWe515Collector(SmartMeterCollector):
             raise MeasureException("Fail to fetch measure") from e
 
 
-class FakeCollector(SmartMeterCollector):
+class RandomCollector(SmartMeterCollector):
     def collect(self) -> Measure:
         return Measure(
             timestamp=datetime.utcnow(),
@@ -66,3 +67,59 @@ class FakeCollector(SmartMeterCollector):
             apparent_power=random.uniform(0.0, 4000.0),
             power_factory=random.uniform(0.0, 2.0)
         )
+
+
+class FixedCollector(SmartMeterCollector):
+    def collect(self) -> Measure:
+        return Measure(
+            timestamp=datetime.utcnow(),
+            frequency=50.0,
+            voltage=230.0,
+            current=1.0,
+            active_power=230.0,
+            reactive_power=100.0,
+            apparent_power=240.0,
+            power_factory=0.9
+        )
+
+
+class RampPowerCollector(SmartMeterCollector):
+    power = -1.0
+
+    def collect(self) -> Measure:
+        self.power = self.power + 1.0
+        return Measure(
+            timestamp=datetime.utcnow(),
+            frequency=50.0,
+            voltage=230.0,
+            current=1.0,
+            active_power=self.power,
+            reactive_power=100.0,
+            apparent_power=240.0,
+            power_factory=0.9
+        )
+
+# FIXME: orna collector must be lazy
+# orna_collector_instance = OrnaWe515Collector()
+# fixed_collector_instance = FixedCollector()
+# random_collector_instance = RandomCollector()
+# ramp_power_collector_instance = RampPowerCollector()
+
+
+def provide_smart_meter_collector(collector_name: str) -> SmartMeterCollector:
+    if collector_name == "orna":
+        return OrnaWe515Collector()
+        # return orna_collector_instance
+    elif collector_name == "fixed":
+        return FixedCollector()
+        # return fixed_collector_instance
+    elif collector_name == "random":
+        return RandomCollector()
+        # return random_collector_instance
+    elif collector_name == "ramp-power":
+        return RampPowerCollector()
+        # return ramp_power_collector_instance
+    else:
+        error_message = f"Cannot match any collector for {collector_name}"
+        logging.error(error_message)
+        raise ValueError(error_message)
