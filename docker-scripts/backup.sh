@@ -1,7 +1,7 @@
 #!/bin/sh
 
 influxdb_backup() {
-  date_path=$(date '+%Y-%m-%d_%H-%M')
+  date_path=$(date '+%Y-%m-%d_%H-%M-%S.%s')
   echo "$date_path"
   influx backup \
     "/home/influxdb/backups/$date_path" \
