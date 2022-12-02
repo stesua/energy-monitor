@@ -82,13 +82,18 @@ influx config create \
   -p admin:admin123 \
   -o home
   
-influx backup ./influxdb-backups/
+influx backup ./influxdb-backups/[local|raspberry]/$(date '+%Y-%m-%d_%H-%M') -t influx-db-token
 
 influx delete \
   --bucket energy \
   --start 1970-01-01T00:00:00Z \
   --stop $(date +"%Y-%m-%dT%H:%M:%SZ") \
   --predicate '_measurement="energy"'
+  
+# restore backup
+influx config [local|raspberry]
+influx bucket delete -n energy -t influx-db-token
+influx restore influxdb-backups/2022-12-02_18-15 -t influx-db-token
 
 ```
 
