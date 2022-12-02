@@ -21,6 +21,12 @@ sudo systemctl daemon-reload
 sudo systemctl enable influx-db-backup.timer
 sudo systemctl start influx-db-backup.timer
 
+sudo sh -c 'envsubst < systemd-services/influx-db-grafana.service > /etc/systemd/system/influx-db-grafana.service'
+sudo chmod 644 /etc/systemd/system/influx-db-grafana.service
+sudo systemctl daemon-reload
+sudo systemctl enable influx-db-grafana.service
+sudo systemctl start influx-db-grafana.service
+
 # install python dependencies
 cd energy-collector || echo "Cannot find energy-collector directory" || exit 1
 pip install -r requirements.txt

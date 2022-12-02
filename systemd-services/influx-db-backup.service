@@ -1,5 +1,5 @@
 [Unit]
-Description=Perform InfluxDB backup every hour
+Description=Perform InfluxDB backup
 After=network.target
 StartLimitIntervalSec=0
 

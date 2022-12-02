@@ -1,0 +1,16 @@
+[Unit]
+Description=Energy monitor influxdb and grafana services
+After=network.target
+StartLimitIntervalSec=0
+Requires=docker.service
+
+[Service]
+User=pi
+Type=simple
+Restart=always
+RestartSec=5
+SyslogIdentifier=influx-db-grafana
+ExecStart=/bin/sh -c 'cd ${PWD} & docker compose up'
+
+[Install]
+WantedBy=multi-user.target

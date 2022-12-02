@@ -2,6 +2,7 @@
 Description=Energy collector python script
 After=network.target
 StartLimitIntervalSec=0
+
 [Service]
 User=pi
 Type=simple
