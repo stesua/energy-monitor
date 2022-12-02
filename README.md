@@ -30,6 +30,12 @@ pip install -r requirements.txt
 
 # run in background
 nohup python energy_collector/app.py &
+
+
+sudo systemctl status energy-collector.service
+
+# check systemctl logs
+journalctl -u energy-collector.service
 ```
 
 
@@ -83,6 +89,20 @@ influx config create \
   -o home
   
 influx backup ./influxdb-backups/[local|raspberry]/$(date '+%Y-%m-%d_%H-%M') -t influx-db-token
+
+export INFLUX_USERNAME=admin  
+export INFLUX_PASSWORD=admin123
+influx backup ./influxdb-backups/raspberry/$(date '+%Y-%m-%d_%H-%M') -t=iGHIoYd-jIJ1piThJevsDcPmpSQzo3pV45GL0sSE0c34ESsP30ChBXSYQ0HP6IZhK6zgqI-cbuYLGWfWZ4iZNA==
+
+$ temp token
+INFLUX_TOKEN=-s-XYiuYFPAXBGdOfoTCFvZCD7lFz_E1DHNmtIj6cljBK60BosHIInnVfQ75mxEf6kW0s1cz0DHmpoacqZowhQ==
+
+curl --request GET \
+	"http://192.168.1.248:8086/api/v2/authorizations" \
+  --header "Authorization: Token ${INFLUX_TOKEN}" \
+  --header 'Content-type: application/json'
+
+
 
 influx delete \
   --bucket energy \

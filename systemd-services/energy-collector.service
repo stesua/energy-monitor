@@ -8,7 +8,7 @@ Type=simple
 Restart=always
 RestartSec=5
 SyslogIdentifier=energy-collector
-ExecStart=/usr/bin/python3 ${PROJECT_PATH}/energy-collector/energy_collector/app.py
+ExecStart=/usr/bin/python3 ${PWD}/energy-collector/energy_collector/app.py
 
 [Install]
 WantedBy=multi-user.target
