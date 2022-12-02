@@ -10,11 +10,16 @@ sudo systemctl daemon-reload
 sudo systemctl enable energy-collector.service
 sudo systemctl start energy-collector.service
 
-sudo sh -c 'envsubst < systemd-services/influx-db-backup.service > /etc/systemd/system/influx-db-backup.service'
+sudo cp systemd-services/influx-db-backup.service /etc/systemd/system/influx-db-backup.service
 sudo chmod 644 /etc/systemd/system/influx-db-backup.service
 sudo systemctl daemon-reload
 sudo systemctl enable influx-db-backup.service
-sudo systemctl start influx-db-backup.service
+
+sudo cp systemd-services/influx-db-backup.timer /etc/systemd/system/influx-db-backup.timer
+sudo chmod 644 /etc/systemd/system/influx-db-backup.timer
+sudo systemctl daemon-reload
+sudo systemctl enable influx-db-backup.timer
+sudo systemctl start influx-db-backup.timer
 
 # install python dependencies
 cd energy-collector || echo "Cannot find energy-collector directory" || exit 1

@@ -2,20 +2,14 @@
 Description=Perform InfluxDB backup every hour
 After=network.target
 StartLimitIntervalSec=0
+
 [Service]
 User=pi
 Type=simple
 Restart=always
 RestartSec=5
 SyslogIdentifier=influxdb-backup
-ExecStart=docker exec -it energy-monitor-influxdb-1 /home/influxdb/scripts/backup.sh
-
-[Timer]
-Persistent=true
-OnBootSec=10min
-OnUnitActiveSec=1h
-#File describing job to execute
-#Unit=schedule-test.service
+ExecStart=docker exec energy-monitor-influxdb-1 /home/influxdb/scripts/backup.sh
 
 [Install]
 WantedBy=multi-user.target

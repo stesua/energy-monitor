@@ -1,0 +1,11 @@
+[Unit]
+Description=Timer to perform InfluxDB backup every hour
+
+[Timer]
+Persistent=true
+OnBootSec=2min
+OnUnitActiveSec=1h
+Unit=influx-db-backup.service
+
+[Install]
+WantedBy=multi-user.target

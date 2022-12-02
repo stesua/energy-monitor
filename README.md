@@ -31,11 +31,13 @@ pip install -r requirements.txt
 # run in background
 nohup python energy_collector/app.py &
 
-
+# check services
 sudo systemctl status energy-collector.service
+sudo systemctl status influx-db-backup.service
 
 # check systemctl logs
 journalctl -u energy-collector.service
+journalctl -u influx-db-backup.service
 ```
 
 
