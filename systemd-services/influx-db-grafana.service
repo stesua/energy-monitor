@@ -10,7 +10,7 @@ Type=simple
 Restart=always
 RestartSec=5
 SyslogIdentifier=influx-db-grafana
-ExecStart=/bin/sh -c 'cd ${PWD} & docker compose up'
+ExecStart=docker compose -f $PWD/docker-compose.yaml up -d
 
 [Install]
 WantedBy=multi-user.target
