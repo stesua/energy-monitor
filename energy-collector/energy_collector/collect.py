@@ -101,9 +101,10 @@ class RampPowerCollector(SmartMeterCollector):
 
 # FIXME: orna collector must be lazy
 # orna_collector_instance = OrnaWe515Collector()
-# fixed_collector_instance = FixedCollector()
-# random_collector_instance = RandomCollector()
-# ramp_power_collector_instance = RampPowerCollector()
+fixed_collector_instance = FixedCollector()
+random_collector_instance = RandomCollector()
+# FIXME: ramp_power must be singleton or with shared state
+ramp_power_collector_instance = RampPowerCollector()
 
 
 def provide_smart_meter_collector(collector_name: str) -> SmartMeterCollector:
@@ -111,14 +112,11 @@ def provide_smart_meter_collector(collector_name: str) -> SmartMeterCollector:
         return OrnaWe515Collector()
         # return orna_collector_instance
     elif collector_name == "fixed":
-        return FixedCollector()
-        # return fixed_collector_instance
+        return fixed_collector_instance
     elif collector_name == "random":
-        return RandomCollector()
-        # return random_collector_instance
+        return random_collector_instance
     elif collector_name == "ramp-power":
-        return RampPowerCollector()
-        # return ramp_power_collector_instance
+        return ramp_power_collector_instance
     else:
         error_message = f"Cannot match any collector for {collector_name}"
         logging.error(error_message)
