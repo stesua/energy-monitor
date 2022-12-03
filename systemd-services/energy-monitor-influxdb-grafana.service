@@ -9,7 +9,10 @@ User=pi
 Type=simple
 Restart=always
 RestartSec=5
-SyslogIdentifier=influx-db-grafana
+SyslogIdentifier=energy-monitor-influxdb-grafana
+
+#FIXME: requires that all the mounted volumes are full path, with the current implementation cannot find local folder
+# FIXME: wrong location of docker binaruy
 ExecStart=/usr/bin/docker compose -f $PWD/docker-compose.yaml up -d
 ExecStop=/usr/bin/docker compose -f $PWD/docker-compose.yaml stop
 ExecReload=/usr/bin/docker compose -f $PWD/docker-compose.yaml restart

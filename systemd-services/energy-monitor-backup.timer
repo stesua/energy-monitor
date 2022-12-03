@@ -5,7 +5,7 @@ Description=Timer to perform InfluxDB backup every hour
 Persistent=true
 OnBootSec=2min
 OnUnitActiveSec=1h
-Unit=influx-db-backup.service
+Unit=energy-monitor-backup.service
 
 [Install]
 WantedBy=multi-user.target

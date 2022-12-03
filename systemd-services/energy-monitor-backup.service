@@ -8,7 +8,8 @@ User=pi
 Type=simple
 Restart=always
 RestartSec=5
-SyslogIdentifier=influxdb-backup
+SyslogIdentifier=energy-monitor-backup
+# TODO: use absolute docker path
 ExecStart=docker exec energy-monitor-influxdb-1 /home/influxdb/scripts/backup.sh
 
 [Install]

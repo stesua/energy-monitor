@@ -119,6 +119,26 @@ influx restore influxdb-backups/2022-12-02_18-15 -t influx-db-token
 
 ```
 
+## Troubleshooting
+Locale not set warning (https://daker.me/2014/10/how-to-fix-perl-warning-setting-locale-failed-in-raspbian.html):
+```shell
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LC_TERMINAL = "iTerm2",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+```
+solve it by running:
+```shell
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+sudo locale-gen en_US.UTF-8
+```
+
 ## References
 - [Docker-compose influxdb and grafana](https://github.com/jkehres/docker-compose-influxdb-grafana/blob/master/docker-compose.yml)
 - TODO: add inspiring repo and documentations
