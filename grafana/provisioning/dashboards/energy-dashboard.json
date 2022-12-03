@@ -432,7 +432,7 @@
             "type": "influxdb",
             "uid": "P5697886F9CA74929"
           },
-          "query": "from(bucket: \"energy\")\n|> range(start: -1h)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"active_power\")",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"active_power\")",
           "refId": "A"
         },
         {
@@ -441,7 +441,7 @@
             "uid": "P5697886F9CA74929"
           },
           "hide": false,
-          "query": "from(bucket: \"energy\")\n|> range(start: -1h)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"reactive_power\")",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"reactive_power\")",
           "refId": "B"
         },
         {
@@ -450,7 +450,7 @@
             "uid": "P5697886F9CA74929"
           },
           "hide": false,
-          "query": "from(bucket: \"energy\")\n|> range(start: -1h)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"apparent_power\")",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"apparent_power\")",
           "refId": "C"
         }
       ],
@@ -566,7 +566,7 @@
             "type": "influxdb",
             "uid": "P5697886F9CA74929"
           },
-          "query": "from(bucket: \"energy\")\n|> range(start: -1h)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"voltage\")",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"voltage\")",
           "refId": "A"
         }
       ],
@@ -656,7 +656,7 @@
             "type": "influxdb",
             "uid": "P5697886F9CA74929"
           },
-          "query": "from(bucket: \"energy\")\n|> range(start: -1h)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"current\")",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"current\")",
           "refId": "A"
         }
       ],
@@ -745,7 +745,7 @@
             "type": "influxdb",
             "uid": "P5697886F9CA74929"
           },
-          "query": "from(bucket: \"energy\")\n|> range(start: -1h)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"frequency\")",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"frequency\")",
           "refId": "A"
         }
       ],
@@ -835,7 +835,7 @@
             "type": "influxdb",
             "uid": "P5697886F9CA74929"
           },
-          "query": "from(bucket: \"energy\")\n|> range(start: -1h)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"power_factory\")",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"power_factory\")",
           "refId": "A"
         }
       ],
