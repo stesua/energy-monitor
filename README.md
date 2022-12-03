@@ -136,22 +136,21 @@ should be recognized already?
 
 ## TODO
 - Add system service like https://github.com/fargiolas/we515mqtt/blob/master/we515mqtt.service
-- add energy measure
+- add measure of active and reactive energy 
 - refactor energy measure into main since in general with different power meter or power sensor you can collect different measurement 
   - BREAKING CHANGE! 
 - add raspberry metrics, like cpu usage, memory, temperature ...
-- deploy services
-- test deployment script
 - complete backup
 - move backup into cloud
-- export data 
-- implement factory collector based on environment 
+- export data  
 - complete dashboard
 - compute price by interpolating energy and price at a given time
-- configure interval
-- configure token, use static one for sake of simplicity
-- try increase timeout
-- persist logging
-- configure logging level 
-
-
+- try increase timeout -> check results!
+- persist logging 
+- investigate on performance 
+- investigate on frequent backup
+- create terraform resource for azure (then gcs and aws) 
+- influx db backup rotation
+- monitor raspberry pi metrics with influxdb + telegraf https://randomnerdtutorials.com/monitor-raspberry-pi-influxdb-telegraf/
+- check influxdb memory usage 
+  - try increase swap memory: https://pimylifeup.com/raspberry-pi-swap-file/ 
