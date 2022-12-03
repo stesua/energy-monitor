@@ -7,7 +7,7 @@ Requires=docker.service
 [Service]
 User=pi
 Type=simple
-Restart=always
+Restart=on-failure
 RestartSec=5
 SyslogIdentifier=energy-monitor-influxdb-grafana
 

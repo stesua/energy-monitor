@@ -6,7 +6,7 @@ StartLimitIntervalSec=0
 [Service]
 User=pi
 Type=simple
-Restart=always
+Restart=on-failure
 RestartSec=5
 SyslogIdentifier=energy-monitor-collector
 ExecStart=/usr/bin/python3 ${PWD}/energy-collector/energy_collector/app.py
