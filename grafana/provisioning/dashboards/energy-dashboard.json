@@ -432,7 +432,7 @@
             "type": "influxdb",
             "uid": "P5697886F9CA74929"
           },
-          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"active_power\")\n|> aggregateWindow(every: 30s, fn: mean)",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"active_power\")\n|> aggregateWindow(every: v.windowPeriod, fn: mean)",
           "refId": "A"
         },
         {
@@ -441,7 +441,7 @@
             "uid": "P5697886F9CA74929"
           },
           "hide": false,
-          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"reactive_power\")\n|> aggregateWindow(every: 30s, fn: mean)",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"reactive_power\")\n|> aggregateWindow(every: v.windowPeriod, fn: mean)",
           "refId": "B"
         },
         {
@@ -450,7 +450,7 @@
             "uid": "P5697886F9CA74929"
           },
           "hide": false,
-          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"apparent_power\")\n|> aggregateWindow(every: 30s, fn: mean)",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"apparent_power\")\n|> aggregateWindow(every: v.windowPeriod, fn: mean)",
           "refId": "C"
         }
       ],
@@ -566,7 +566,7 @@
             "type": "influxdb",
             "uid": "P5697886F9CA74929"
           },
-          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"voltage\")\n|> aggregateWindow(every: 30s, fn: mean)",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"voltage\")\n|> aggregateWindow(every: v.windowPeriod, fn: mean)",
           "refId": "A"
         }
       ],
@@ -656,7 +656,7 @@
             "type": "influxdb",
             "uid": "P5697886F9CA74929"
           },
-          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"current\")\n|> aggregateWindow(every: 30s, fn: mean)",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"current\")\n|> aggregateWindow(every: v.windowPeriod, fn: mean)",
           "refId": "A"
         }
       ],
@@ -745,7 +745,7 @@
             "type": "influxdb",
             "uid": "P5697886F9CA74929"
           },
-          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"frequency\")\n|> aggregateWindow(every: 30s, fn: mean)",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"frequency\")\n|> aggregateWindow(every: v.windowPeriod, fn: mean)",
           "refId": "A"
         }
       ],
@@ -835,7 +835,7 @@
             "type": "influxdb",
             "uid": "P5697886F9CA74929"
           },
-          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"power_factory\")\n|> aggregateWindow(every: 30s, fn: mean)",
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"power_factory\")\n|> aggregateWindow(every: v.windowPeriod, fn: mean)",
           "refId": "A"
         }
       ],
