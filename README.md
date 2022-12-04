@@ -36,7 +36,7 @@ sudo systemctl status energy-monitor*
 
 # check systemctl logs
 journalctl -u energy-monitor-collector.service
-journalctl -u energy-monitor--backup.service
+journalctl -u energy-monitor-backup.service
 ```
 
 
