@@ -8,9 +8,16 @@ influxdb_backup() {
     -t="$DOCKER_INFLUXDB_INIT_ADMIN_TOKEN"
 }
 
+rotate_backups() {
+  versions_to_keep=$1
+  ls -1 -d /home/influxdb/backups/** | sort -r | awk "NR>$versions_to_keep" | xargs -t rm -r
+}
+
+
 cloud_storage_sync() {
   echo "Not implemented"
   return 1
 }
 
 influxdb_backup
+rotate_backups 10
