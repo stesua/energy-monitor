@@ -212,11 +212,11 @@
             "type": "influxdb",
             "uid": "P5697886F9CA74929"
           },
-          "query": "from(bucket: \"energy\")\n|> range(start: -1d)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"active_power\")\n|> integral(unit: 1h)",
+          "query": "from(bucket: \"energy\")\n|> range(start: -7d)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"active_power\")\n|> integral(unit: 1h)",
           "refId": "A"
         }
       ],
-      "title": "Day Consumption",
+      "title": "Week Consumption",
       "type": "stat"
     },
     {
@@ -286,72 +286,6 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "P3C147723CB20F3EF"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "watth"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 0,
-        "y": 5
-      },
-      "id": 17,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.2.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P3C147723CB20F3EF"
-          },
-          "query": "SELECT sum(\"mean\")/3600 FROM (\n  SELECT mean(\"active_power\") FROM \"autogen\".\"energy\" WHERE $timeFilter GROUP BY time(1s) fill(null)\n) WHERE $timeFilter GROUP BY time(1h) fill(null)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series"
-        }
-      ],
-      "title": "Consumption",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
         "uid": "P5697886F9CA74929"
       },
       "fieldConfig": {
@@ -411,7 +345,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 5
       },
       "id": 13,
       "options": {
@@ -483,6 +417,9 @@
               "viz": false
             },
             "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -545,7 +482,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 20
+        "y": 15
       },
       "id": 6,
       "options": {
@@ -627,7 +564,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "mamp"
         },
         "overrides": []
       },
@@ -635,7 +573,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 15
       },
       "id": 8,
       "options": {
@@ -716,7 +654,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "rothz"
         },
         "overrides": []
       },
@@ -724,7 +663,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 28
+        "y": 23
       },
       "id": 2,
       "options": {
@@ -814,7 +753,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 23
       },
       "id": 11,
       "options": {
@@ -851,13 +790,13 @@
     "list": []
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Energy",
   "uid": "energy-dashboard-2022-11-30",
-  "version": 6,
+  "version": 4,
   "weekStart": ""
 }
