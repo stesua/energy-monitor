@@ -1,19 +1,40 @@
 # Overview
-This project aim to collect tool to collect data from home power meter.
+This project goal is to collect data from home power meter, it's intended for home use only and requires professional electrician support to install the required hardware since it could be potentially lethal. 
 
-Components:
-- Power meter: ORNO WE-515
+The vision of this project is to be able to categorize energy consumption into the corresponding device using a machine learning model, this particular use case it's still at an early stage.
+
+This project is not mature yet and could be changed in non-backward compatible manner in feature versions. 
+
+## Features
+- Metric collector python script
+  - configurable with different hardware interface
+  - 1s collection rate
+  - installed as systemd service
+- Time series database using influxdb
+  - provisioned into docker
+  - automatic backup every 1 hour using systemd service
+  - backup rotation to keep only latest 10 run using systemd service
+- Visualization using grafana
+  - provisioned into docker
+  - built-in ready to use dashboard
+- Install
+  - automatic install script
+
+## Components:
+- Raspberry 3B+
+- Power meter used is [ORNO WE-515](https://www.partner.orno.pl/manuals/OR-WE-512,514,515_manual_EN.pdf) but should be easily replaced with similar product that support RS485 standard 
 - USB RS485 converter
-- Python library
-- InfluxDB
-- Grafana
+- Python library to collect measure and send to the time series database
+- InfluxDB to store collected measure
+- Grafana to visualize measure
+
 
 ## Requirements
-- raspberry 3+ with 64 bit OS (32 bit should work adjusting docker image versions)
-- docker
-- python 3.9 (TODO: evaluate support for previous version or adopt 3.11 instead)
-- [poetry](https://python-poetry.org/docs/) for dev
-- pip on raspberry
+- Raspberry 3+ with 64 bit OS (32 bit should work adjusting docker image versions)
+- Docker
+- Python 3.9
+- [Poetry](https://python-poetry.org/docs/) for development environemnt
+- Pip on raspberry
 
 ### Install poetry
 ```
@@ -77,34 +98,23 @@ docker info
 
 ## InfluxDB
 ```
+# create local development env influx cli configuration
 influx config create \
   -n local \
   -u http://localhost:8086 \
   -p admin:admin123 \
   -o home
   
-influx config create \
+# create raspberry development env influx cli configuration
+RASBERRY_IP=192.168.1.248 influx config create \
   -n raspberry \
-  -u http://192.168.1.248:8086 \
+  -u "http://$RASPBERRY_IP:8086" \
   -p admin:admin123 \
   -o home
   
 influx backup ./influxdb-backups/[local|raspberry]/$(date '+%Y-%m-%d_%H-%M') -t influx-db-token
 
-export INFLUX_USERNAME=admin  
-export INFLUX_PASSWORD=admin123
-influx backup ./influxdb-backups/raspberry/$(date '+%Y-%m-%d_%H-%M') -t=iGHIoYd-jIJ1piThJevsDcPmpSQzo3pV45GL0sSE0c34ESsP30ChBXSYQ0HP6IZhK6zgqI-cbuYLGWfWZ4iZNA==
-
-$ temp token
-INFLUX_TOKEN=-s-XYiuYFPAXBGdOfoTCFvZCD7lFz_E1DHNmtIj6cljBK60BosHIInnVfQ75mxEf6kW0s1cz0DHmpoacqZowhQ==
-
-curl --request GET \
-	"http://192.168.1.248:8086/api/v2/authorizations" \
-  --header "Authorization: Token ${INFLUX_TOKEN}" \
-  --header 'Content-type: application/json'
-
-
-
+# drop data with time and measurement filters
 influx delete \
   --bucket energy \
   --start 1970-01-01T00:00:00Z \
@@ -115,8 +125,8 @@ influx delete \
 influx config [local|raspberry]
 influx bucket delete -n energy -t influx-db-token
 influx restore influxdb-backups/2022-12-02_18-15 -t influx-db-token
-
 ```
+
 
 ## Troubleshooting
 Locale not set warning (https://daker.me/2014/10/how-to-fix-perl-warning-setting-locale-failed-in-raspbian.html):
@@ -146,30 +156,22 @@ sudo locale-gen en_US.UTF-8
 
 ??? https://www.elocal.it/Soluzione.php?Usare-la-seriale-RS485-su-Raspberry-PI-3B
 
-should be recognized already?
-[    9.754441] usbcore: registered new interface driver ch341
-[    9.754579] usbserial: USB Serial support registered for ch341-uart
-[    9.754801] ch341 1-1.5:1.0: ch341-uart converter detected
-[    9.758079] usb 1-1.5: ch341-uart converter now attached to ttyUSB0
-
 
 ## TODO
-- Add system service like https://github.com/fargiolas/we515mqtt/blob/master/we515mqtt.service
 - add measure of active and reactive energy 
 - refactor energy measure into main since in general with different power meter or power sensor you can collect different measurement 
-  - BREAKING CHANGE! 
+  - BREAKING CHANGE! (preserve data by backup and restore smartly) 
 - add raspberry metrics, like cpu usage, memory, temperature ...
-- complete backup
 - move backup into cloud
-- export data  
-- complete dashboard
+- export data for analytics and ML purpose
 - compute price by interpolating energy and price at a given time
-- try increase timeout -> check results!
-- persist logging 
-- investigate on performance 
-- investigate on frequent backup
-- create terraform resource for azure (then gcs and aws) 
-- influx db backup rotation
+- investigate on performance
+- create terraform resource for azure (then gcs and aws)
 - monitor raspberry pi metrics with influxdb + telegraf https://randomnerdtutorials.com/monitor-raspberry-pi-influxdb-telegraf/
 - check influxdb memory usage 
   - try increase swap memory: https://pimylifeup.com/raspberry-pi-swap-file/ 
+- install script should restart docker to make new file available there as well 
+- install script should install all requirements pip, python3.9, docker, envsubst ...
+- analyze collection errors due to 
+  - raise NoResponseError("No communication with the instrument (no answer)")
+ 
