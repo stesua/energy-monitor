@@ -1,5 +1,6 @@
 *.pyc
 *.iml
 .idea
+.pytest_cache
 influxdb2
 influxdb-backups

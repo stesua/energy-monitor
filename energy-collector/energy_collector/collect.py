@@ -2,8 +2,10 @@ import logging
 import random
 from datetime import datetime
 from dataclasses import dataclass
+from minimalmodbus import Instrument
 from typing import Optional
-from instrument import OrnaWe515
+
+from energy_collector.instrument import OrnaWe515
 
 
 @dataclass
@@ -32,20 +34,20 @@ class SmartMeterCollector:
 
 
 class OrnaWe515Collector(SmartMeterCollector):
-    def __init__(self):
-        self.smart_meter = OrnaWe515()
+    def __init__(self, smart_meter_instrument: Instrument):
+        self.smart_meter = smart_meter_instrument
 
     def collect(self) -> Measure:
         try:
             return Measure(
                 timestamp=datetime.utcnow(),
-                frequency=float(self.smart_meter.instrument.read_register(304, 2, 3, True)),
-                voltage=float(self.smart_meter.instrument.read_register(305, 2, 3, True)),
-                current=float(self.smart_meter.instrument.read_long(313, 3, False, 0)),
-                active_power=float(self.smart_meter.instrument.read_long(320, 3, False, 0)),
-                reactive_power=float(self.smart_meter.instrument.read_long(328, 3, False, 0)),
-                apparent_power=float(self.smart_meter.instrument.read_long(336, 3, False, 0)),
-                power_factory=float(self.smart_meter.instrument.read_register(344, 3, 3, True)),
+                frequency=float(self.smart_meter.read_register(304, 2, 3, True)),
+                voltage=float(self.smart_meter.read_register(305, 2, 3, True)),
+                current=float(self.smart_meter.read_long(313, 3, False, 0)),
+                active_power=float(self.smart_meter.read_long(320, 3, False, 0)),
+                reactive_power=float(self.smart_meter.read_long(328, 3, False, 0)),
+                apparent_power=float(self.smart_meter.read_long(336, 3, False, 0)),
+                power_factory=float(self.smart_meter.read_register(344, 3, 3, True)),
                 #read_registers(registeraddress, number_of_registers, functioncode=3) TODO: check transformation
                 # active_energy=float(self.smart_meter.instrument.read_registers(40960, 10, 3)),
                 #read_registers(registeraddress, number_of_registers, functioncode=3) TODO: check transformation
@@ -109,7 +111,7 @@ ramp_power_collector_instance = RampPowerCollector()
 
 def provide_smart_meter_collector(collector_name: str) -> SmartMeterCollector:
     if collector_name == "orna":
-        return OrnaWe515Collector()
+        return OrnaWe515Collector(OrnaWe515('/dev/ttyUSB0', 1))
         # return orna_collector_instance
     elif collector_name == "fixed":
         return fixed_collector_instance

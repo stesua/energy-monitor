@@ -2,7 +2,7 @@ import datetime
 import logging
 import sys
 
-from collect import provide_smart_meter_collector
+from energy_collector.collect import provide_smart_meter_collector
 from influxdb import InfluxDBService
 from timeloop import Timeloop
 from datetime import timedelta, datetime

@@ -174,4 +174,9 @@ sudo locale-gen en_US.UTF-8
 - install script should install all requirements pip, python3.9, docker, envsubst ...
 - analyze collection errors due to 
   - raise NoResponseError("No communication with the instrument (no answer)")
+- add test coverage
+- add CI/CD (choose the tool, github actions/circleci...)
+- add alerts for power overload
+- add alerts in case of issue in collecting
+- add python linter and pre-commit hook 
  
