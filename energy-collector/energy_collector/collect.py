@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from minimalmodbus import Instrument
 from typing import Optional
 
-from energy_collector.instrument import OrnaWe515
+from instrument import OrnaWe515
 
 
 @dataclass

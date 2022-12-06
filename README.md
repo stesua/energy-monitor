@@ -160,20 +160,17 @@ sudo locale-gen en_US.UTF-8
 ## TODO
 - add measure of active and reactive energy 
 - refactor energy measure into main since in general with different power meter or power sensor you can collect different measurement 
-  - BREAKING CHANGE! (preserve data by backup and restore smartly) 
-- add raspberry metrics, like cpu usage, memory, temperature ...
+  - BREAKING CHANGE! (preserve data by backup and restore smartly)
 - move backup into cloud
 - export data for analytics and ML purpose
 - compute price by interpolating energy and price at a given time
-- investigate on performance
 - create terraform resource for azure (then gcs and aws)
+- add raspberry metrics, like cpu usage, memory, temperature ...- 
 - monitor raspberry pi metrics with influxdb + telegraf https://randomnerdtutorials.com/monitor-raspberry-pi-influxdb-telegraf/
 - check influxdb memory usage 
   - try increase swap memory: https://pimylifeup.com/raspberry-pi-swap-file/ 
-- install script should restart docker to make new file available there as well 
+- install script should restart docker services to make new file available there as well (NB: restart grafana and influxdb not docker)
 - install script should install all requirements pip, python3.9, docker, envsubst ...
-- analyze collection errors due to 
-  - raise NoResponseError("No communication with the instrument (no answer)")
 - add test coverage
 - add CI/CD (choose the tool, github actions/circleci...)
 - add alerts for power overload

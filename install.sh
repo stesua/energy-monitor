@@ -12,7 +12,7 @@ sudo sh -c 'envsubst < systemd-services/energy-monitor-collector.service > /etc/
 sudo chmod 644 /etc/systemd/system/energy-monitor-collector.service
 sudo systemctl daemon-reload
 sudo systemctl enable energy-monitor-collector.service
-sudo systemctl start energy-monitor-collector.service
+sudo systemctl restart energy-monitor-collector.service
 echo "energy-monitor-collector.service installed"
 
 echo "installing energy-monitor-backup.service"
