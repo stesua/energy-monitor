@@ -48,10 +48,20 @@ class OrnaWe515Collector(SmartMeterCollector):
                 reactive_power=float(self.smart_meter.read_long(328, 3, False, 0)),
                 apparent_power=float(self.smart_meter.read_long(336, 3, False, 0)),
                 power_factory=float(self.smart_meter.read_register(344, 3, 3, True)),
-                #read_registers(registeraddress, number_of_registers, functioncode=3) TODO: check transformation
-                # active_energy=float(self.smart_meter.instrument.read_registers(40960, 10, 3)),
-                #read_registers(registeraddress, number_of_registers, functioncode=3) TODO: check transformation
-                # reactive_energy=float(self.smart_meter.instrument.read_registers(40990, 10, 3))
+
+                active_energy=float(self.smart_meter.read_registers(40960, 10, 3)[1]),
+                # TODO: add different rate
+                # active_energy_f1=float(self.smart_meter.read_registers(40960, 10, 3)[3]),
+                # active_energy_f2=float(self.smart_meter.read_registers(40960, 10, 3)[5]),
+                # active_energy_f3=float(self.smart_meter.read_registers(40960, 10, 3)[7]),
+                # active_energy_f4=float(self.smart_meter.read_registers(40960, 10, 3)[9]),
+
+                reactive_energy=float(self.smart_meter.read_registers(40990, 10, 3)[1])
+                # TODO: add different rate
+                # reactive_energy_f1=float(self.smart_meter.read_registers(40990, 10, 3)[3]),
+                # reactive_energy_f2=float(self.smart_meter.read_registers(40990, 10, 3)[5]),
+                # reactive_energy_f3=float(self.smart_meter.read_registers(40990, 10, 3)[7]),
+                # reactive_energy_f4=float(self.smart_meter.read_registers(40990, 10, 3)[9]),
             )
         except Exception as e:
             raise MeasureException("Fail to fetch measure") from e
@@ -67,7 +77,9 @@ class RandomCollector(SmartMeterCollector):
             active_power=random.uniform(0.0, 4000.0),
             reactive_power=random.uniform(0.0, 4000.0),
             apparent_power=random.uniform(0.0, 4000.0),
-            power_factory=random.uniform(0.0, 2.0)
+            power_factory=random.uniform(0.0, 2.0),
+            active_energy=random.uniform(0.0, 4000.0),
+            reactive_energy=random.uniform(0.0, 4000.0)
         )
 
 
@@ -81,7 +93,9 @@ class FixedCollector(SmartMeterCollector):
             active_power=230.0,
             reactive_power=100.0,
             apparent_power=240.0,
-            power_factory=0.9
+            power_factory=0.9,
+            active_energy=250.0,
+            reactive_energy=120.0
         )
 
 
@@ -98,7 +112,9 @@ class RampPowerCollector(SmartMeterCollector):
             active_power=self.power,
             reactive_power=100.0,
             apparent_power=240.0,
-            power_factory=0.9
+            power_factory=0.9,
+            active_energy=200.0,
+            reactive_energy=120.0
         )
 
 # FIXME: orna collector must be lazy

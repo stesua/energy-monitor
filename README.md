@@ -167,7 +167,7 @@ sudo locale-gen en_US.UTF-8
 - create terraform resource for azure (then gcs and aws)
 - add raspberry metrics, like cpu usage, memory, temperature ...- 
 - monitor raspberry pi metrics with influxdb + telegraf https://randomnerdtutorials.com/monitor-raspberry-pi-influxdb-telegraf/
-- check influxdb memory usage 
+- check influxdb memory usage (no more issues)
   - try increase swap memory: https://pimylifeup.com/raspberry-pi-swap-file/ 
 - install script should restart docker services to make new file available there as well (NB: restart grafana and influxdb not docker)
 - install script should install all requirements pip, python3.9, docker, envsubst ...
@@ -176,4 +176,5 @@ sudo locale-gen en_US.UTF-8
 - add alerts for power overload
 - add alerts in case of issue in collecting
 - add python linter and pre-commit hook  
+- rename orna in orno!! 
  
