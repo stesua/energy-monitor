@@ -30,7 +30,7 @@ sudo systemctl enable energy-monitor-backup.timer
 sudo systemctl start energy-monitor-backup.timer
 echo "energy-monitor-backup.timer installed"
 
-# FIXME: either copy config and mounted folder here or change strategy
+# FIXME: either copy config and mounted folder here or change strategy (maybe with pipenv will work)
 #echo "installing energy-monitor-influxdb-grafana.service"
 #sudo sh -c 'envsubst < systemd-services/energy-monitor-influxdb-grafana.service > /etc/systemd/system/energy-monitor-influxdb-grafana.service'
 #sudo chmod 644 /etc/systemd/system/energy-monitor-influxdb-grafana.service
@@ -42,7 +42,7 @@ echo "energy-monitor-backup.timer installed"
 # install python dependencies
 echo "installing energy collector python requirements"
 cd energy-collector || echo "Cannot find energy-collector directory" || exit 1
-pip install -r requirements.txt
+pipenv install
 cd ..
 echo "energy collector python requirements installed"
 

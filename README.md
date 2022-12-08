@@ -33,21 +33,21 @@ This project is not mature yet and could be changed in non-backward compatible m
 - Raspberry 3+ with 64 bit OS (32 bit should work adjusting docker image versions)
 - Docker
 - Python 3.9
-- [Poetry](https://python-poetry.org/docs/) for development environemnt
-- Pip on raspberry
+- [Pipenv](https://pipenv.pypa.io/en/latest/)
 
-### Install poetry
+### Install pipenv
 ```
-curl -sSL https://install.python-poetry.org | python3 -
+pip install --user pipenv
 ```
 
 ### Useful commands
-```
-# export requrirements
-poetry export -f requirements.txt --output requirements.txt
 
+```
 # install requirements on raspberry
-pip install -r requirements.txt
+pipenv install
+
+# run app locally
+pipenv run python energy_collector/app.py True random
 
 # run in background
 nohup python energy_collector/app.py &
@@ -56,8 +56,8 @@ nohup python energy_collector/app.py &
 sudo systemctl status energy-monitor*
 
 # check systemctl logs
-journalctl -u energy-monitor-collector.service
-journalctl -u energy-monitor-backup.service
+journalctl -u energy-monitor-collector.service -f
+journalctl -u energy-monitor-backup.service -f
 ```
 
 
@@ -175,5 +175,5 @@ sudo locale-gen en_US.UTF-8
 - add CI/CD (choose the tool, github actions/circleci...)
 - add alerts for power overload
 - add alerts in case of issue in collecting
-- add python linter and pre-commit hook 
+- add python linter and pre-commit hook  
  
