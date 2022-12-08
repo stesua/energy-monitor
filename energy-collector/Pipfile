@@ -1,7 +1,7 @@
 [[source]]
-url = "https://pypi.org/simple"
+url = "https://www.piwheels.org/simple"
 verify_ssl = true
-name = "pypi"
+name = "pywheels"
 
 [packages]
 certifi = "==2022.9.24"
@@ -22,4 +22,3 @@ freezegun = "==1.2.2"
 
 [requires]
 python_version = "3.9"
-python_full_version = "3.9.13"
