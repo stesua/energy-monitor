@@ -16,7 +16,7 @@ class InfluxDBService:
 
     def write_measure(self, measure: Measure):
         logging.debug(f"Sending measure to influxDB {measure}")
-        # TODO: improve it
+        # TODO: improve it using dataclass compatible with influx structure
         # FIXME: force to use float
         self.write_api.write(
             bucket=self.bucket,
@@ -32,4 +32,6 @@ class InfluxDBService:
                 "reactive_power",
                 "apparent_power",
                 "power_factory",
+                "active_energy",
+                "reactive_energy"
             ])
