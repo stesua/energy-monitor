@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from minimalmodbus import Instrument
 from typing import Optional
 
-from instrument import OrnaWe515
+from instrument import OrnoWe515
 
 
 @dataclass
@@ -33,7 +33,7 @@ class SmartMeterCollector:
         pass
 
 
-class OrnaWe515Collector(SmartMeterCollector):
+class OrnoWe515Collector(SmartMeterCollector):
     def __init__(self, smart_meter_instrument: Instrument):
         self.smart_meter = smart_meter_instrument
 
@@ -117,8 +117,9 @@ class RampPowerCollector(SmartMeterCollector):
             reactive_energy=120.0
         )
 
-# FIXME: orna collector must be lazy
-# orna_collector_instance = OrnaWe515Collector()
+
+# FIXME: orno collector must be lazy
+# orno_collector_instance = OrnaWe515Collector()
 fixed_collector_instance = FixedCollector()
 random_collector_instance = RandomCollector()
 # FIXME: ramp_power must be singleton or with shared state
@@ -126,9 +127,9 @@ ramp_power_collector_instance = RampPowerCollector()
 
 
 def provide_smart_meter_collector(collector_name: str) -> SmartMeterCollector:
-    if collector_name == "orna":
-        return OrnaWe515Collector(OrnaWe515('/dev/ttyUSB0', 1))
-        # return orna_collector_instance
+    if collector_name == "orno":
+        return OrnoWe515Collector(OrnoWe515('/dev/ttyUSB0', 1))
+        # return orno_collector_instance
     elif collector_name == "fixed":
         return fixed_collector_instance
     elif collector_name == "random":

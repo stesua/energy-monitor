@@ -35,7 +35,7 @@ if __name__ == '__main__':
     argv = sys.argv[1:]
     # TODO: improve arg parsing
     debug_mode = argv[0].lower() == "true" if len(argv) >= 1 else False
-    collector_name = argv[1].lower() if len(argv) >= 2 else "orna"
+    collector_name = argv[1].lower() if len(argv) >= 2 else "orno"
 
     if debug_mode:
         logging.basicConfig(level=logging.DEBUG)

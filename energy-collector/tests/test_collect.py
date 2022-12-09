@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 from freezegun import freeze_time
 
-from energy_collector.collect import RampPowerCollector, Measure, FixedCollector, RandomCollector, OrnaWe515Collector
+from energy_collector.collect import RampPowerCollector, Measure, FixedCollector, RandomCollector, OrnoWe515Collector
 
 dummy_date = datetime.datetime(2012, 1, 14)
 
@@ -33,10 +33,10 @@ dummy_measure_ones = Measure(
 
 @freeze_time(dummy_date.strftime("%m/%d/%Y"))
 @patch("minimalmodbus.Instrument")
-def test_orna_we_515_collector(smart_meter_mock):
+def test_orno_we_515_collector(smart_meter_mock):
     smart_meter_mock.read_register.return_value = 1.0
     smart_meter_mock.read_long.return_value = 1
-    sut = OrnaWe515Collector(smart_meter_mock)
+    sut = OrnoWe515Collector(smart_meter_mock)
     assert sut.collect() == dummy_measure_ones
 
 

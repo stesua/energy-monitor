@@ -1,7 +1,7 @@
 import minimalmodbus
 
 
-class OrnaWe515(minimalmodbus.Instrument):
+class OrnoWe515(minimalmodbus.Instrument):
 
     def __init__(self, port: str, slaveaddress: int):
         super().__init__(port, slaveaddress)

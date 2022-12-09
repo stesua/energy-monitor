@@ -158,7 +158,7 @@ sudo locale-gen en_US.UTF-8
 
 
 ## TODO
-- add measure of active and reactive energy 
+- add measure of active and reactive energy split by rate
 - refactor energy measure into main since in general with different power meter or power sensor you can collect different measurement 
   - BREAKING CHANGE! (preserve data by backup and restore smartly)
 - move backup into cloud
@@ -176,5 +176,5 @@ sudo locale-gen en_US.UTF-8
 - add alerts for power overload
 - add alerts in case of issue in collecting
 - add python linter and pre-commit hook  
-- rename orna in orno!! 
+- add CLI usage 
  
