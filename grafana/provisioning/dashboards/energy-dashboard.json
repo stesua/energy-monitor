@@ -75,7 +75,7 @@
         "x": 0,
         "y": 1
       },
-      "id": 14,
+      "id": 21,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -305,6 +305,71 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 6
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.2.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P5697886F9CA74929"
+          },
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"active_energy\")\n|> spread()",
+          "refId": "A"
+        }
+      ],
+      "title": "Consumption (beta)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P5697886F9CA74929"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "fixedColor": "light-blue",
             "mode": "fixed"
           },
@@ -347,7 +412,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 11
       },
       "id": 20,
       "options": {
@@ -423,6 +488,107 @@
               "mode": "off"
             }
           },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P5697886F9CA74929"
+          },
+          "hide": false,
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"active_energy\")\n|> aggregateWindow(every: v.windowPeriod, fn: mean)",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P5697886F9CA74929"
+          },
+          "hide": false,
+          "query": "from(bucket: \"energy\")\n|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n|> filter(fn: (r) => r._measurement == \"energy\" and r._field == \"reactive_energy\")\n|> aggregateWindow(every: v.windowPeriod, fn: mean)",
+          "refId": "B"
+        }
+      ],
+      "title": "Energy",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P5697886F9CA74929"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -445,9 +611,9 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 29
       },
-      "id": 13,
+      "id": 22,
       "options": {
         "legend": {
           "calcs": [],
@@ -582,7 +748,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 24
+        "y": 39
       },
       "id": 6,
       "options": {
@@ -673,7 +839,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 24
+        "y": 39
       },
       "id": 8,
       "options": {
@@ -763,7 +929,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 32
+        "y": 47
       },
       "id": 2,
       "options": {
@@ -853,7 +1019,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 32
+        "y": 47
       },
       "id": 11,
       "options": {
@@ -890,13 +1056,13 @@
     "list": []
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-4m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Energy",
   "uid": "energy-dashboard-2022-11-30",
-  "version": 5,
+  "version": 6,
   "weekStart": ""
 }
