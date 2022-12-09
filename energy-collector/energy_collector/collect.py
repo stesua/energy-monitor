@@ -49,14 +49,14 @@ class OrnaWe515Collector(SmartMeterCollector):
                 apparent_power=float(self.smart_meter.read_long(336, 3, False, 0)),
                 power_factory=float(self.smart_meter.read_register(344, 3, 3, True)),
 
-                active_energy=float(self.smart_meter.read_registers(40960, 10, 3)[1]),
+                active_energy=float(self.smart_meter.read_registers(40960, 10, 3)[1] * 10.0),
                 # TODO: add different rate
                 # active_energy_f1=float(self.smart_meter.read_registers(40960, 10, 3)[3]),
                 # active_energy_f2=float(self.smart_meter.read_registers(40960, 10, 3)[5]),
                 # active_energy_f3=float(self.smart_meter.read_registers(40960, 10, 3)[7]),
                 # active_energy_f4=float(self.smart_meter.read_registers(40960, 10, 3)[9]),
 
-                reactive_energy=float(self.smart_meter.read_registers(40990, 10, 3)[1])
+                reactive_energy=float(self.smart_meter.read_registers(40990, 10, 3)[1] * 10.0)
                 # TODO: add different rate
                 # reactive_energy_f1=float(self.smart_meter.read_registers(40990, 10, 3)[3]),
                 # reactive_energy_f2=float(self.smart_meter.read_registers(40990, 10, 3)[5]),
