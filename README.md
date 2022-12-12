@@ -180,23 +180,34 @@ sudo locale-gen en_US.UTF-8
 
 
 ## TODO
+### Important
+- check performance issue after few days, system is unresponsive probably due to influxdb memory consumption
+- check influxdb memory usage (no more issues)
+  - try increase swap memory: https://pimylifeup.com/raspberry-pi-swap-file/
+- install script should restart docker services to make new file available there as well (NB: restart grafana and influxdb not docker)
+- add raspberry metrics, like cpu usage, memory, temperature ...-
+- monitor raspberry pi metrics with influxdb + telegraf https://randomnerdtutorials.com/monitor-raspberry-pi-influxdb-telegraf/
+- add alerts in case of issue in collecting
+- fix testing due to incompatibility with systemd python run
+
+### Visualization enhancement
+- restore continuous line in grafana dashboard
+
+### New feature
 - add measure of active and reactive energy split by rate
-- refactor energy measure into main since in general with different power meter or power sensor you can collect different measurement 
-  - BREAKING CHANGE! (preserve data by backup and restore smartly)
 - move backup into cloud
 - export data for analytics and ML purpose
 - compute price by interpolating energy and price at a given time
 - create terraform resource for azure (then gcs and aws)
-- add raspberry metrics, like cpu usage, memory, temperature ...- 
-- monitor raspberry pi metrics with influxdb + telegraf https://randomnerdtutorials.com/monitor-raspberry-pi-influxdb-telegraf/
-- check influxdb memory usage (no more issues)
-  - try increase swap memory: https://pimylifeup.com/raspberry-pi-swap-file/ 
-- install script should restart docker services to make new file available there as well (NB: restart grafana and influxdb not docker)
+- add alerts for power overload
+- add CLI usage
+- rotate journalctl logs
 - install script should install all requirements pip, python3.9, docker, envsubst ...
+
+### Tech debt
+- refactor energy measure into main since in general with different power meter or power sensor you can collect different measurement 
+  - BREAKING CHANGE! (preserve data by backup and restore smartly)
 - add test coverage
 - add CI/CD (choose the tool, github actions/circleci...)
-- add alerts for power overload
-- add alerts in case of issue in collecting
 - add python linter and pre-commit hook  
-- add CLI usage 
  
