@@ -40,7 +40,8 @@ This project is not mature yet and could be changed in non-backward compatible m
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) 
 - Terraform 1.3.6+
 
-### Install pipenv
+### Install requirement
+Pipenv: 
 ```
 pip install --user pipenv
 ```
@@ -52,7 +53,6 @@ brew update && brew install azure-cli
 ```
 
 ### Useful commands
-
 ```
 # install requirements on raspberry
 pipenv install
@@ -136,6 +136,17 @@ influx delete \
 influx config [local|raspberry]
 influx bucket delete -n energy -t influx-db-token
 influx restore influxdb-backups/2022-12-02_18-15 -t influx-db-token
+```
+
+## Terraform
+```shell
+# init environment, replace with right values
+az login
+cd terraform 
+./init.sh <resource_group_name> <azure_location> <azure_storage_account>
+
+# create resources
+terraform apply
 ```
 
 
