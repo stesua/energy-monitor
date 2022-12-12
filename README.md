@@ -19,6 +19,8 @@ This project is not mature yet and could be changed in non-backward compatible m
   - built-in ready to use dashboard
 - Install
   - automatic install script
+- Infrastructure as code using terraform
+  - partial support to Microsoft Azure
 
 ## Components:
 - Raspberry 3B+
@@ -27,6 +29,7 @@ This project is not mature yet and could be changed in non-backward compatible m
 - Python library to collect measure and send to the time series database
 - InfluxDB to store collected measure
 - Grafana to visualize measure
+- Microsoft Azure to store influxdb backups 
 
 
 ## Requirements
@@ -34,10 +37,18 @@ This project is not mature yet and could be changed in non-backward compatible m
 - Docker
 - Python 3.9
 - [Pipenv](https://pipenv.pypa.io/en/latest/)
+- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) 
+- Terraform 1.3.6+
 
 ### Install pipenv
 ```
 pip install --user pipenv
+```
+
+AzureCLI:
+```shell
+# mac
+brew update && brew install azure-cli
 ```
 
 ### Useful commands
