@@ -7,10 +7,23 @@ services:
             - influxdb2-data:/var/lib/influxdb2:rw
             - ./influxdb-backups:/home/influxdb/backups
             - ./docker-scripts:/home/influxdb/scripts
+
         ports:
             - "8086:8086"
         env_file:
             - ./influxdb.env
+
+    telegraf:
+        image: telegraf:1.25
+        volumes:
+            - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
+            - /:/hostfs:ro
+        depends_on:
+            - influxdb
+        links:
+            - influxdb
+        env_file:
+            - ./telegraf.env
 
     grafana:
         image: grafana/grafana:9.2.6
