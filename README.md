@@ -131,7 +131,7 @@ influx delete \
   --start 1970-01-01T00:00:00Z \
   --stop $(date +"%Y-%m-%dT%H:%M:%SZ") \
   --predicate '_measurement="energy"'
-  
+    
 # restore backup
 influx config [local|raspberry]
 influx bucket delete -n energy -t influx-db-token
