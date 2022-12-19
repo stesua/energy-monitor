@@ -46,6 +46,7 @@ pipenv install
 cd ..
 echo "energy collector python requirements installed"
 
-
-
-
+# telegraf template
+echo "installing rasp-pi telegraf metrics"
+docker exec -it energy-monitor-influxdb-1 ./home/influxdb/scripts/raspberry-pi-system-template.sh
+echo "rasp-pi telegraf metrics installed"
