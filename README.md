@@ -21,6 +21,8 @@ This project is not mature yet and could be changed in non-backward compatible m
   - automatic install script
 - Infrastructure as code using terraform
   - partial support to Microsoft Azure
+- Monitoring Raspberry metrics
+  - based on [influxdb community template](https://github.com/influxdata/community-templates/tree/master/raspberry-pi)
 
 ## Components:
 - Raspberry 3B+
@@ -185,8 +187,6 @@ sudo locale-gen en_US.UTF-8
 - check influxdb memory usage (no more issues)
   - try increase swap memory: https://pimylifeup.com/raspberry-pi-swap-file/
 - install script should restart docker services to make new file available there as well (NB: restart grafana and influxdb not docker)
-- add raspberry metrics, like cpu usage, memory, temperature ...-
-- monitor raspberry pi metrics with influxdb + telegraf https://randomnerdtutorials.com/monitor-raspberry-pi-influxdb-telegraf/
 - add alerts in case of issue in collecting
 - fix testing due to incompatibility with systemd python run
 
